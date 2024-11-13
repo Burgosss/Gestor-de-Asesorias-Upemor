@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Upemor</title>
+    <link rel="stylesheet" href="../Static/css/styles.css">
+</head>
+<body>
+    
+    <header>
+        <div class="container">
+            <h1>
+                <img src="../Static/img/logo.png" alt="Logo UPEMOR">Upemor - Sistema de Gestión de Asesorías
+            </h1>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="login.html" class="active">Iniciar sesión</a></li>
+                    <li><a href="#">Asesorías</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    
+    <main>
+        <section class="login-form">
+            <h2>Iniciar Sesión</h2>
+            <form action="loginUser.php" method="POST">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Ingresar</button>
+            </form>
+        </section>
+    </main>
+
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Upemor. Todos los derechos reservados.</p>
+            <p><a href="#">Política de privacidad</a> | <a href="#">Términos y condiciones</a></p>
+        </div>
+    </footer>
+</body>
+</html>

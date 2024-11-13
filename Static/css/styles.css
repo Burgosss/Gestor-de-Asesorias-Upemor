@@ -1,0 +1,253 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-color: #6A1B9A; /* Morado UPEMOR */
+    color: white;
+    padding: 20px 0;
+    border-bottom: 3px solid #C62828; /* Rojo UPEMOR */
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 26px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+}
+
+header h1 img {
+    margin-right: 15px;
+    width: 40px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a.active {
+    color: #FFC107; /* Amarillo UPEMOR */
+}
+
+nav ul li a:hover {
+    color: #FFC107;
+}
+
+/* Main */
+main {
+    padding: 40px;
+    background-color: white;
+    min-height: 80vh;
+}
+
+/* Opciones de administración */
+.admin-options {
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin-options h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #6A1B9A; /* Morado UPEMOR */
+    padding-bottom: 10px;
+}
+
+.admin-options ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-options ul li {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.admin-options ul li a {
+    display: inline-block;
+    background-color: #6A1B9A; /* Morado UPEMOR */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.admin-options ul li a:hover {
+    background-color: #C62828; /* Rojo UPEMOR */
+}
+
+/* Login form */
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #6A1B9A; /* Morado UPEMOR */
+    padding-bottom: 10px;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-form input,
+.login-form select,
+.login-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-form button {
+    width: 100%;
+    background-color: #6A1B9A; /* Morado UPEMOR */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #C62828; /* Rojo UPEMOR */
+}
+
+.login-form .registro {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-form .registro a {
+    color: #6A1B9A; /* Morado UPEMOR */
+    text-decoration: none;
+}
+
+.login-form .registro a:hover {
+    color: #C62828; /* Rojo UPEMOR */
+}
+
+/* Footer */
+footer {
+    background-color: #C62828;
+    color: white;
+    padding: 20px 0;
+    border-top: 3px solid #8E0000;
+    box-shadow: 0px -2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+footer .container {
+    padding: 0 40px;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #bbb;
+}
+
+footer a {
+    color: #FFC107;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+/* Tablas */
+table {
+    width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
+    border-collapse: collapse; /* Evita el espacio entre las celdas */
+}
+
+th, td {
+    padding: 10px; /* Espacio interno en celdas */
+    text-align: left; /* Alineación del texto */
+    border: 1px solid #ccc; /* Borde para celdas */
+    overflow-wrap: break-word; /* Permite que el contenido largo se rompa en múltiples líneas */
+}
+
+th {
+    background-color: #6A1B9A; /* Fondo morado para el encabezado */
+    color: white; /* Texto blanco para el encabezado */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo alternativo para filas */
+}
+
+tbody tr:hover {
+    background-color: #dcdcdc; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilo para mensajes de error en el formulario */
+.error-message {
+    color: #C62828; /* Rojo UPEMOR */
+    background-color: #ffe6e6;
+    border: 1px solid #C62828;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+#error-messages {
+    display: none;
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+

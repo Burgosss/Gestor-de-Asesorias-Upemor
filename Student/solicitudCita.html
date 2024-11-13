@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Cita</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><img src="img/logo.png" alt="Logo UPEMOR">Gestor de Asesorías</h1>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Inicio</a></li>
+                    <li><a href="#">Materias</a></li>
+                    <li><a href="#">Asesorías</a></li>
+                    <li><a href="#">Perfil</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="login-form">
+            <h2>Solicitar Cita</h2>
+            <form id="formCita">
+                <label for="materia">Selecciona la materia:</label>
+                <select id="materia" name="materia" required>
+                    <option value="">Seleccione una materia</option>
+                    <option value="matematica">Matemáticas</option>
+                    <option value="fisica">Física</option>
+                    <option value="quimica">Química</option>
+                </select>
+
+                <label for="profesor">Disponibilidad del Profesor:</label>
+                <select id="profesor" name="profesor" required>
+                    <option value="">Seleccione un profesor</option>
+                    <option value="prof1">Prof. Juan Pérez</option>
+                    <option value="prof2">Prof. Ana López</option>
+                    <option value="prof3">Prof. Carlos Sánchez</option>
+                </select>
+
+                <label for="fecha">Selecciona la fecha:</label>
+                <input type="date" id="fecha" name="fecha" required>
+
+                <button type="submit">Solicitar Cita</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 UPEMOR. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

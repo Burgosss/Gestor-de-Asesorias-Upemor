@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas Pasadas - Observaciones</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Vincula tu archivo CSS existente -->
+    <style>
+        /* Estilo para la tabla de citas pasadas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #6A1B9A; /* Morado UPEMOR */
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn-observaciones {
+            background-color: #6A1B9A; /* Morado UPEMOR */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-observaciones:hover {
+            background-color: #C62828; /* Rojo UPEMOR */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Gestión de Citas Pasadas</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Citas Pasadas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Alumno</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10/10/2024</td>
+                        <td>10:00 AM</td>
+                        <td>Juan Pérez</td>
+                        <td>
+                            <button class="btn-observaciones">Añadir Observaciones</button>
+                        </td>
+                    </tr>
+                    <!-- Puedes agregar más filas de citas pasadas aquí -->
+                </tbody>
+            </table>
+
+            <!-- Sección para añadir observaciones -->
+            <div class="login-form">
+                <h2>Añadir Observaciones</h2>
+                <form>
+                    <label for="observaciones">Observaciones:</label>
+                    <textarea id="observaciones" name="observaciones" rows="4" required></textarea>
+
+                    <label for="archivo">Adjuntar Archivo:</label>
+                    <input type="file" id="archivo" name="archivo" accept=".pdf, .doc, .docx, .ppt, .pptx, .jpg, .png">
+
+                    <button type="submit">Guardar Observaciones</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema de Gestión de Asesorías Académicas. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
