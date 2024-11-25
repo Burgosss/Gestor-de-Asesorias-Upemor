@@ -41,9 +41,9 @@ if (mysqli_num_rows($resultAlumno) == 1) {
         <h1><img src="../../Static/img/logo.png" alt="Logo UPEMOR">Mensajería para Alumnos</h1>
         <nav>
             <ul>
-                <li><a href="../AlumnoIndex.php" class="active">Inicio</a></li>
-                <li><a href="#">Citas</a></li>
-                <li><a href="MensajeriaAlumno.php">Nuevo Mensaje</a></li>
+                <li><a href="../AlumnoIndex.php">Inicio</a></li>
+                <li><a href="gestionAsesoriasAlumno.php">Gestion de Asesorias</a></li>
+                <li><a href="MensajeriaAlumno.php" class="active">Nuevo Mensaje</a></li>
                 <li><a href="PerfilAlumno.php">Perfil</a></li>
                 <li><a href="../../login/logout.php">Cerrar Sesión</a></li>
             </ul>
@@ -55,7 +55,7 @@ if (mysqli_num_rows($resultAlumno) == 1) {
     <!-- Columna Izquierda: Bandeja de Chats -->
     <div style="width: 30%; padding: 20px; border-right: 1px solid #ccc;">
         <h2>Chats</h2>
-        <?php
+        <?php   
         // Obtener chats activos del alumno
         $sqlChats = "SELECT DISTINCT id_profesor FROM mensaje WHERE id_alumno = '$id_alumno'";
         $resultChats = mysqli_query($conn, $sqlChats);
@@ -94,7 +94,7 @@ if (mysqli_num_rows($resultAlumno) == 1) {
             $chatActivo = mysqli_fetch_assoc($resultChatActivo)['nombre'];
 
             // Obtener mensajes entre alumno y profesor
-            $sqlMensajes = "SELECT * FROM mensaje WHERE (id_alumno = '$id_alumno' AND id_profesor = '$id_profesor') OR (id_alumno = '$id_alumno' AND id_profesor = '$id_profesor') ORDER BY fecha_hora";
+            $sqlMensajes = "SELECT * FROM mensaje WHERE (id_alumno = '$id_alumno' AND id_profesor = '$id_prc ofesor') OR (id_alumno = '$id_alumno' AND id_profesor = '$id_profesor') ORDER BY fecha_hora";
             $mensajes = mysqli_query($conn, $sqlMensajes);
         ?>
             <h2>Chat con Profesor <?php echo htmlspecialchars($chatActivo); ?></h2>
@@ -127,8 +127,36 @@ if (mysqli_num_rows($resultAlumno) == 1) {
         <?php else: ?>
             <h2>Nuevo Mensaje</h2>
             <form action="../Controlador/msgStudent.php" method="POST" class="login-form">
-                <label for="destinatario">Matrícula del Profesor</label>
-                <input type="text" name="destinatario" id="destinatario" required pattern="[A-Za-z0-9]+" title="Solo letras y números permitidos">
+                <label for="destinatario">Profesor</label>
+                <select name="destinatario" id="destinatario" required>
+                    <option value="" disabled selected>Selecciona un profesor</option>
+                    <?php
+                    // Obtener profesores con asesorías aceptadas o finalizadas
+                    $sqlProfesores = "
+                        SELECT DISTINCT p.id_profesor, u.nombre 
+                        FROM asesoria a
+                        INNER JOIN profesor p ON a.id_profesor = p.id_profesor
+                        INNER JOIN usuario u ON p.id_usuario = u.id_usuario
+                        WHERE a.id_alumno = '$id_alumno' 
+                        AND (a.estado = 'Aprobada' OR a.estado = 'Finalizada')
+                    ";
+
+                    $resultProfesores = mysqli_query($conn, $sqlProfesores);
+
+                    if (!$resultProfesores) {
+                        die("Error en la consulta: " . mysqli_error($conn));
+                    }
+                    $resultProfesores = mysqli_query($conn, $sqlProfesores);
+
+                    if ($resultProfesores && mysqli_num_rows($resultProfesores) > 0) {
+                        while ($profesor = mysqli_fetch_assoc($resultProfesores)) {
+                            echo "<option value='" . $profesor['id_profesor'] . "'>" . htmlspecialchars($profesor['nombre']) . "</option>";
+                        }
+                    } else {
+                        echo "<option value='' disabled>No tienes profesores disponibles</option>";
+                    }
+                    ?>
+                </select>
                 <textarea name="contenido" placeholder="Escribe tu mensaje aquí..." required></textarea>
                 <button type="submit">Enviar</button>
             </form>

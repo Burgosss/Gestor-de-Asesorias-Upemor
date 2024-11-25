@@ -20,7 +20,6 @@ if (mysqli_num_rows($resultAdmin) == 1) {
 
 if (isset($_POST['update'])) {
     $id_usuario = $_GET['id_usuario'];
-    $password = $_POST['password'];
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $genero = $_POST['genero'];
@@ -28,7 +27,7 @@ if (isset($_POST['update'])) {
     $cuatrimestre = $_POST['cuatrimestre'];
 
 
-    $query = "UPDATE usuario SET  password = '$password', nombre = '$nombre', apellido = '$apellido', genero = '$genero', fec_nac = '$fec_nac' WHERE id_usuario = $id_usuario";
+    $query = "UPDATE usuario SET  nombre = '$nombre', apellido = '$apellido', genero = '$genero', fec_nac = '$fec_nac' WHERE id_usuario = $id_usuario";
     $updt= "UPDATE alumno SET cuatrimestre = '$cuatrimestre' WHERE id_usuario='$id_usuario';";
 
     $execute=mysqli_query($conn,$updt);

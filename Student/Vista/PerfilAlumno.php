@@ -51,9 +51,10 @@ if (mysqli_num_rows($result) == 1) {
         <h1><img src="../../Static/img/logo.png" alt="Logo UPEMOR">Mensajería para Alumnos</h1>
         <nav>
             <ul>
-                <li><a href="../AlumnoIndex.php" class="active">Inicio</a></li>
-                <li><a href="#">Citas</a></li>
-                <li><a href="PerfilAlumno.php">Perfil</a></li>
+                <li><a href="../AlumnoIndex.php" >Inicio</a></li>
+                <li><a href="gestionAsesoriasAlumno.php">Gestion de Asesorias</a></li>
+                <li><a href="MensajeriaAlumno.php">Enviar Mensajes</a></li>
+                <li><a href="PerfilAlumno.php" class="active">Perfil</a></li>
                 <li><a href="../../login/logout.php">Cerrar Sesión</a></li>
             </ul>
         </nav>

@@ -28,10 +28,11 @@ if (mysqli_num_rows($resultProfesor) == 1) {
 <body>
     <header>
         <div class="container">
-            <h1>Panel del Profesor</h1>
+            <h1><img src="../Static/img/logo.png" alt="Logo UPEMOR"> Panel del Profesor</h1>
             <nav>
                 <ul>
-                    <li><a href="#">Ver Solicitudes de Citas</a></li>
+                    <li><a href="#" class="active">Inicio</a></li>
+                    <li><a href="Vista/CitasProfesor.php" >Gestion de Asesorias</a></li>
                     <li><a href="Vista/MensajeriaProfesor.php">Enviar Mensajes</a></li>
                     <li><a href="Vista/PerfilProfesor.php">Perfil</a></li>
                     <li><a href="../login/logout.php">Cerrar Sesión</a></li>

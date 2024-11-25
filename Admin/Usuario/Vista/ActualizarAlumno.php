@@ -26,7 +26,6 @@ $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_array($result);
     $usuario = $row['usuario'];
-    $password = $row['password'];
     $nombre = $row['nombre'];
     $apellido = $row['apellido'];
     $genero = $row['genero'];
@@ -60,10 +59,8 @@ if (mysqli_num_rows($result) == 1) {
     <main>
         <div class="login-form">
             <h2>Datos del alumno</h2>
-            <form action="../Controlador/UpdateAlumno.php?id_usuario=<?php echo $id_usuario; ?>" method="POST" onsubmit="return validateFormUpdate()">
-                <label for="password">Contraseña:</label>
-                <input type="text" name="password" id="password" value="<?php echo $password; ?>" required>
-
+            <form action="../Controlador/UpdateAlumno.php?id_usuario=<?php echo $id_usuario; ?>" method="POST" onsubmit="return validateFormUpdateAdmin()">
+                
                 <label for="nombre">Nombre:</label>
                 <input type="text" name="nombre" id="nombre" value="<?php echo $nombre; ?>" required>
 
@@ -94,7 +91,7 @@ if (mysqli_num_rows($result) == 1) {
                 </select>
                 
                 <div id="error-messages" class="error-message"></div>
-                <input type="submit" name="update" value="Actualizar" onclick="return validateFormUpdate();">
+                <input type="submit" name="update" value="Actualizar" onclick="return validateFormUpdateAdmin();">
             </form>
         </div>
     </main>

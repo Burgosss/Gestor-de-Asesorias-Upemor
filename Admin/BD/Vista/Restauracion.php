@@ -30,7 +30,8 @@ if (mysqli_num_rows($resultAdmin) == 1) {
             <nav>
                 <ul>
                     <li><a href="../../adminIndex.php">Inicio</a></li>
-                    <li><a href="#">Citas</a></li>
+                    <li><a href="Respaldo.php">Respaldo</a></li>
+                    <li><a href="Restauracion.php" class="active">Restauración</a></li>
                     <li><a href="../../Usuario/Vista/PerfilAdmin.php">Perfil</a></li>
                     <li><a href="../../../login/logout.php">Cerrar Sesión</a></li>
                 </ul>
@@ -57,7 +58,7 @@ if (mysqli_num_rows($resultAdmin) == 1) {
     </footer>
 </body>
 </html>
-<?php 
+<?php
 } else {
     header("Location: ../../login/login.html");
 }

@@ -41,9 +41,9 @@ if (mysqli_num_rows($resultProfesor) == 1) {
         <h1><img src="../../Static/img/logo.png" alt="Logo UPEMOR">Mensajería para Profesores</h1>
         <nav>
             <ul>
-                <li><a href="../ProfesorIndex.php" class="active">Inicio</a></li>
-                <li><a href="#">Citas</a></li>
-                <li><a href="MensajeriaProfesor.php">Nuevo Mensaje</a></li>
+                <li><a href="../ProfesorIndex.php">Inicio</a></li>
+                <li><a href="CitasProfesor.php">Gestion de Asesorias</a></li>
+                <li><a href="MensajeriaProfesor.php" class="active">Nuevo Mensaje</a></li>
                 <li><a href="PerfilProfesor.php">Perfil</a></li>
                 <li><a href="../../login/logout.php">Cerrar Sesión</a></li>
             </ul>
@@ -119,9 +119,37 @@ if (mysqli_num_rows($resultProfesor) == 1) {
 
         <?php else: ?>
             <h2>Nuevo Mensaje</h2>
-            <form action="../Controlador/msgTeacherRep.php" method="POST" class="login-form">
-                <label for="destinatario">Matrícula del Alumno</label>
-                <input type="text" name="destinatario" id="destinatario" required pattern="[A-Za-z0-9]+" title="Solo letras y números permitidos">
+            <form action="../Controlador/msgTeacher.php" method="POST" class="login-form">
+                <label for="destinatario">Profesor</label>
+                <select name="destinatario" id="destinatario" required>
+                    <option value="" disabled selected>Selecciona un alumno</option>
+                    <?php
+                    // Obtener alumnos con asesorías aceptadas o finalizadas
+                    $sqlAlumnos = "
+                        SELECT DISTINCT s.id_alumno, u.nombre 
+                        FROM asesoria a
+                        INNER JOIN alumno s ON a.id_alumno = s.id_alumno
+                        INNER JOIN usuario u ON s.id_usuario = u.id_usuario
+                        WHERE a.id_profesor = '$id_profesor' 
+                        AND (a.estado = 'Aprobada' OR a.estado = 'Finalizada')
+                    ";
+
+                    $resultAlumno = mysqli_query($conn, $sqlAlumnos);
+
+                    if (!$resultAlumno) {
+                        die("Error en la consulta: " . mysqli_error($conn));
+                    }
+                    $resultAlumno = mysqli_query($conn, $sqlAlumnos);
+
+                    if ($resultAlumno && mysqli_num_rows($resultAlumno) > 0) {
+                        while ($alumno = mysqli_fetch_assoc($resultAlumno)) {
+                            echo "<option value='" . $alumno['id_alumno'] . "'>" . htmlspecialchars($alumno['nombre']) . "</option>";
+                        }
+                    } else {
+                        echo "<option value='' disabled>No tienes alumnos disponibles</option>";
+                    }
+                    ?>
+                </select>
                 <textarea name="contenido" placeholder="Escribe tu mensaje aquí..." required></textarea>
                 <button type="submit">Enviar</button>
             </form>

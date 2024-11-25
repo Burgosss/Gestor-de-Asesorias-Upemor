@@ -28,6 +28,9 @@ if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_array($result);
     $nombre = $row['nombre'];
     $cuatrimestre = $row['cuatrimestre'];
+    $creditos = $row['Creditos'];
+    $descripcion = $row['Descripcion'];
+
 }
 ?>
 
@@ -72,6 +75,20 @@ if (mysqli_num_rows($result) == 1) {
                     <option value="8" <?php if($cuatrimestre == '8') echo 'selected'; ?>>Cuatrimestre 8</option>
                     <option value="9" <?php if($cuatrimestre == '9') echo 'selected'; ?>>Cuatrimestre 9</option>
                 </select>
+
+                <label for="creditos">Creditos</label>
+                <select id="creditos" name="creditos" required>
+                    <option value="4" <?php if($creditos == '4') echo 'selected' ?>;>4 Créditos</option>
+                    <option value="5" <?php if($creditos == '5') echo 'selected' ?>;>5 Créditos</option>
+                    <option value="6" <?php if($creditos == '6') echo 'selected' ?>;>6 Créditos</option>
+                    <option value="7" <?php if($creditos == '7') echo 'selected' ?>;>7 Créditos</option>
+                    <option value="8" <?php if($creditos == '8') echo 'selected' ?>;>8 Créditos</option>
+
+                </select>  
+
+                <label for="descripcion">Descripcion</label>
+                <input type="text" id="descripcion" name="descripcion" value="<?php echo $descripcion; ?>" required>
+
 
                 <div id="error-messages" class="error-message"></div>
                 <input type="submit" name="update" value="Actualizar" onclick="return validateMateriaForm();">

@@ -16,6 +16,13 @@ $resultAdmin = mysqli_query($conn, $sqlAdmin);
 
 if (mysqli_num_rows($resultAdmin) == 1) {
 ?>  
+<?php
+if (isset($_GET['error']) && $_GET['error'] == 'asesorias_pendientes') {
+    echo "<script>
+        alert('No se puede eliminar al alumno porque tiene asesorías pendientes.');
+    </script>";
+}
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -33,7 +40,12 @@ if (mysqli_num_rows($resultAdmin) == 1) {
             </h1>
             <nav>
                 <ul>
-                    <li><a href="../Usuario.php" class="active">Regresar</a></li>
+                    <li><a href="../../adminIndex.php">Inicio</a></li>
+                    <li><a href="../../BD/Vista/Respaldo.php">Respaldo</a></li>
+                    <li><a href="../../BD/Vista/Restauracion.php">Restauración</a></li>
+                    <li><a href="../Usuario.php" class="active">Usuarios</a></li>
+                    <li><a href="../Vista/PerfilAdmin.php">Perfil</a></li>
+                    <li><a href="../../../login/logout.php">Cerrar Sesión</a></li>
                 </ul>
             </nav>
         </div>
@@ -47,7 +59,6 @@ if (mysqli_num_rows($resultAdmin) == 1) {
                     <tr>
                         <th>ID</th>
                         <th>Usuario</th>
-                        <th>Contraseña</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Género</th>
@@ -67,15 +78,20 @@ if (mysqli_num_rows($resultAdmin) == 1) {
                     <tbody>
                         <tr> 
                             <td><?php echo $rows['id_usuario'] ?></td>
-                            <td><?php echo $rows['usuario'] ?> </td>
-                            <td><?php echo $rows['password'] ?> </td>
+                            <td><?php echo $rows['usuario'] ?> </td>    
                             <td><?php echo $rows['nombre'] ?> </td>
                             <td><?php echo $rows['apellido'] ?> </td>
                             <td><?php echo $rows['genero'] ?> </td>
                             <td><?php echo $rows['fec_nac'] ?> </td>
                             <td><?php echo $rows['correo_electronico'] ?></td>
                             <td><?php echo $rows['cuatrimestre'] ?></td>
-                            <td><a href="../Controlador/DeleteAlumno.php?id_usuario=<?php echo $rows['id_usuario'];?>">Eliminar</a></td>
+                            <td>
+                                <a href="../Controlador/deletealumno.php?id_usuario=<?php echo $rows['id_usuario']; ?>" 
+                                onclick="return confirmarEliminacion();" 
+                                class="btn btn-danger">
+                                    Eliminar
+                                </a>
+                            </td>                              
                             <td><a href="ActualizarAlumno.php?id_usuario=<?php echo $rows['id_usuario'];?>">Actualizar</a></td>
                         </tr>
                     </tbody>
@@ -89,6 +105,11 @@ if (mysqli_num_rows($resultAdmin) == 1) {
             <p>&copy; 2024 UPEMOR. Todos los derechos reservados.</p>
         </div>
     </footer>
+    <script>
+        function confirmarEliminacion() {
+            return confirm("¿Estás seguro de que deseas eliminar esta materia? Esta acción no se puede deshacer.");
+        }
+    </script>
 </body>
 </html>
 <?php 

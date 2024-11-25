@@ -31,8 +31,7 @@ if (mysqli_num_rows($resultAdmin) == 1) {
             <h1><img src="../Static/img/logo.png" alt="Logo UPEMOR">Panel de Administrador</h1>
             <nav>
                 <ul>
-                    <li><a href="#" class="active">Inicio</a></li>
-                    <li><a href="#">Citas</a></li>
+                    <li><a href=# class="active">Inicio</a></li>
                     <li><a href="BD/Vista/Respaldo.php">Respaldo</a></li>
                     <li><a href="BD/Vista/Restauracion.php">Restauración</a></li>
                     <li><a href="Usuario/Vista/PerfilAdmin.php">Perfil</a></li>
@@ -48,8 +47,7 @@ if (mysqli_num_rows($resultAdmin) == 1) {
             <ul>
                 <li><a href="Registro/Registro.php">Registro</a></li>
                 <li><a href="Usuario/Usuario.php">Usuarios y Materias</a></li>
-                <li><a href="Citas.html">Citas</a></li>
-                <li><a href="citas.html">Gestionar Citas</a></li>
+                <li><a href="Registro/Vista/archivos.php">Gestion de Archivos</a></li>
             </ul>
         </div>
     </main>

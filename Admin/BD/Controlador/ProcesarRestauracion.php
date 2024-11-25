@@ -8,16 +8,43 @@ if (!isset($_SESSION['id_usuario'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['backup_file']) && $_FILES['backup_file']['error'] == 0) {
+    // Verificar el tipo de archivo
+    $fileType = $_FILES['backup_file']['type'];
+    if ($fileType !== 'application/octet-stream' && pathinfo($_FILES['backup_file']['name'], PATHINFO_EXTENSION) !== 'sql') {
+        echo "<script>alert('Solo se permiten archivos .sql'); window.location.href = '../Vista/restauracion.php';</script>";
+        exit();
+    }
+
+    // Leer el contenido del archivo cargado
     $backupFile = $_FILES['backup_file']['tmp_name'];
+    $sqlContent = file_get_contents($backupFile);
 
-    // Ejecuta el archivo SQL usando `mysql` para restaurar la base de datos
-    $command = "mysql -u usuario -pcontraseña nombre_base_datos < $backupFile";
-    exec($command, $output, $result);
+    if (!$sqlContent) {
+        echo "<script>alert('Error al leer el archivo de respaldo.'); window.location.href = '../Vista/restauracion.php';</script>";
+        exit();
+    }
 
-    if ($result == 0) {
-        echo "<script>alert('Restauración completada exitosamente.'); window.location.href = '../Vista/restauracion.php';</script>";
+    // Separar las consultas SQL y ejecutarlas
+    $queries = explode(";", $sqlContent);
+    $error = false;
+
+    mysqli_begin_transaction($conn);
+    foreach ($queries as $query) {
+        $query = trim($query);
+        if (!empty($query)) {
+            if (!mysqli_query($conn, $query)) {
+                $error = true;
+                break;
+            }
+        }
+    }
+
+    if ($error) {
+        mysqli_rollback($conn);
+        echo "<script>alert('Error al restaurar la base de datos. Verifique el archivo de respaldo.'); window.location.href = '../Vista/restauracion.php';</script>";
     } else {
-        echo "<script>alert('Error al restaurar la base de datos.'); window.location.href = '../Vista/restauracion.php';</script>";
+        mysqli_commit($conn);
+        echo "<script>alert('Restauración completada exitosamente.'); window.location.href = '../Vista/restauracion.php';</script>";
     }
 } else {
     echo "<script>alert('Debe seleccionar un archivo de respaldo válido.'); window.location.href = '../Vista/restauracion.php';</script>";

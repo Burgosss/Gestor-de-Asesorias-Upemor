@@ -33,7 +33,12 @@ if (mysqli_num_rows($resultAdmin) == 1) {
             </h1>
             <nav>
                 <ul>
-                    <li><a href="../Usuario.php" class="active">Regresar</a></li>
+                    <li><a href="../../adminIndex.php">Inicio</a></li>
+                    <li><a href="../../BD/Vista/Respaldo.php">Respaldo</a></li>
+                    <li><a href="../../BD/Vista/Restauracion.php">Restauración</a></li>
+                    <li><a href="../Usuario.php" class="active">Usuarios</a></li>
+                    <li><a href="../Vista/PerfilAdmin.php">Perfil</a></li>
+                    <li><a href="../../../login/logout.php">Cerrar Sesión</a></li>
                 </ul>
             </nav>
         </div>
@@ -48,6 +53,8 @@ if (mysqli_num_rows($resultAdmin) == 1) {
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Cuatrimestre</th>
+                        <th>Créditos</th>
+                        <th>Descripcion</th>
                     </tr>
                 </thead>
 
@@ -62,6 +69,9 @@ if (mysqli_num_rows($resultAdmin) == 1) {
                             <td><?php echo $rows['id_materia'] ?></td>
                             <td><?php echo $rows['nombre'] ?></td>
                             <td><?php echo $rows['cuatrimestre'] ?></td>
+                            <td><?php echo $rows['Descripcion'] ?></td>
+                            <td><?php echo $rows['Creditos'] ?></td>
+
                         </tr>
                     </tbody>
                 <?php } ?>

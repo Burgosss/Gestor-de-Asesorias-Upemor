@@ -31,8 +31,9 @@ if (mysqli_num_rows($resultAdmin) == 1) {
             <h1><img src="../../Static/img/logo.png" alt="Logo UPEMOR">Panel de Administrador</h1>
             <nav>
                 <ul>
-                    <li><a href="../adminIndex.php" class="active">Inicio</a></li>
-                    <li><a href="#">Citas</a></li>
+                    <li><a href="../adminIndex.php">Inicio</a></li>
+                    <li><a href="../BD/Vista/Respaldo.php">Respaldo</a></li>
+                    <li><a href="../BD/Vista/Restauracion.php">Restauración</a></li>
                     <li><a href="../Usuario/Vista/PerfilAdmin.php">Perfil</a></li>
                     <li><a href="../../login/logout.php">Cerrar Sesión</a></li>
                 </ul>

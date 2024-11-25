@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../Static/connect/db.php';
+include '../../Static/connect/db.php';
 
 
 if (!isset($_SESSION['id_usuario'])) {

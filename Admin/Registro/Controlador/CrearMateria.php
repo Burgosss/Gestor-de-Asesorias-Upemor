@@ -20,14 +20,24 @@ if (mysqli_num_rows($resultAdmin) == 1) {
 <?php 
     $name = $_POST['nombre'];
     $period = $_POST['cuatrimestre'];
+    $credit = $_POST['creditos'];
+    $descri = $_POST['descripcion'];
 
-    $sql = "INSERT INTO materia(nombre, cuatrimestre) VALUES ('$name', '$period')";
+    $checkQuery = "SELECT nombre FROM materia WHERE nombre = '$name'";
+    $checkResult = mysqli_query($conn, $checkQuery);
 
-    
-    
+    if (mysqli_num_rows($checkResult) > 0) {
+        // Datos duplicados
+        header("Location:../Vista/RegistrarMateria.php?error=materia_registrada");
+        exit();
+    }
+
+    $sql = "INSERT INTO materia(nombre, cuatrimestre, creditos, descripcion) VALUES ('$name', '$period','$credit','$descri')";
+
+
     if($execute=mysqli_query($conn,$sql)){
         sleep(2);
-        header("Location:../Vista/RegistrarMateria.php");
+        header("Location:../Vista/RegistrarMateria.php?success=registro_exitoso");
         
     }else{
         echo "ERROR. Crear materia";

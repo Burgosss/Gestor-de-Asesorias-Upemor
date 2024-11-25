@@ -43,8 +43,7 @@ if (mysqli_num_rows($resultProfesor) == 1) {
         $contenido = mysqli_real_escape_string($conn, $_POST['contenido']);
 
         // Insertar el mensaje en la base de datos
-        $sqlInsert = "INSERT INTO mensaje (contenido, fecha_hora, id_profesor, id_alumno, remitente) 
-                    VALUES ('$contenido', NOW(), '$id_profesor', '$id_alumno', '$id_profesor')";
+        $sqlInsert = "INSERT INTO mensaje (contenido, fecha_hora, id_profesor, id_alumno, remitente) VALUES ('$contenido', NOW(), '$id_profesor', '$id_alumno', '$id_profesor')";
         if (mysqli_query($conn, $sqlInsert)) {
             header("Location: ../Vista/mensajeriaProfesor.php?id_alumno=$id_alumno");
             exit();

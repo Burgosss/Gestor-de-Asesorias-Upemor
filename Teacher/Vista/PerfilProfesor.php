@@ -16,7 +16,14 @@ $resultProfesor = mysqli_query($conn, $sqlProfesor);
 
 if (mysqli_num_rows($resultProfesor) == 1) {
 ?> 
+<?php
+if (isset($_GET['error']) && $_GET['error'] == 'asesorias_pendientes') {
+    echo "<script>
+        alert('No se puede eliminar la materia del profesor porque tiene asesorías pendientes.');
+    </script>";
+}
 
+?>
 <?php
 
 $query = "SELECT usuario.* FROM usuario INNER JOIN profesor ON usuario.id_usuario = profesor.id_usuario WHERE usuario.id_usuario = $id_usuario;";
@@ -31,6 +38,21 @@ if (mysqli_num_rows($result) == 1) {
     $genero = $row['genero'];
     $fec_nac = $row['fec_nac'];
     $correo = $row['correo_electronico'];
+}
+?>
+<?php
+// Obtener todas las materias disponibles
+$sqlMaterias = "SELECT * FROM materia";
+$resultMaterias = mysqli_query($conn, $sqlMaterias);
+
+// Obtener las materias actuales del profesor
+$sqlMateriasProfesor = "SELECT id_materia FROM profesor_materia WHERE id_profesor = (SELECT id_profesor FROM profesor WHERE id_usuario = $id_usuario)";
+$resultMateriasProfesor = mysqli_query($conn, $sqlMateriasProfesor);
+
+// Convertir las materias del profesor en un array
+$materiasProfesor = [];
+while ($materia = mysqli_fetch_assoc($resultMateriasProfesor)) {
+    $materiasProfesor[] = $materia['id_materia'];
 }
 ?>
 
@@ -50,9 +72,10 @@ if (mysqli_num_rows($result) == 1) {
         <h1><img src="../../Static/img/logo.png" alt="Logo UPEMOR">Perfil Profesor</h1>
         <nav>
             <ul>
-                <li><a href="../ProfesorIndex.php" class="active">Inicio</a></li>
-                <li><a href="#">Citas</a></li>
-                <li><a href="PerfilProfesor.php">Perfil</a></li>
+                <li><a href="../ProfesorIndex.php" >Inicio</a></li>
+                <li><a href="citasprofesor.php">Gestion de Asesorias</a></li>
+                <li><a href="MensajeriaProfesor.php">Enviar Mensajes</a></li>
+                <li><a href="PerfilProfesor.php" class="active">Perfil</a></li>
                 <li><a href="../../login/logout.php">Cerrar Sesión</a></li>
             </ul>
         </nav>
@@ -60,9 +83,9 @@ if (mysqli_num_rows($result) == 1) {
     </header>
 
     <main>
-        <div class="login-form">
+
+            <form action="../Controlador/ProfileTeacher.php?id_usuario=<?php echo $id_usuario; ?>" method="POST" onsubmit="return validateFormUpdate()">        <div class="login-form">
             <h2>Datos del Profesor</h2>
-            <form action="../Controlador/ProfileTeacher.php?id_usuario=<?php echo $id_usuario; ?>" method="POST" onsubmit="return validateFormUpdate()">
 
                 <label for="password">Contraseña:</label>
                 <input type="text" name="password" id="password" value="<?php echo $password; ?>" required>
@@ -82,6 +105,19 @@ if (mysqli_num_rows($result) == 1) {
 
                 <label for="fec_nac">Fecha de Nacimiento:</label>
                 <input type="date" name="fec_nac" id="fec_nac" value="<?php echo $fec_nac; ?>" required>
+
+                <label>Materias:</label>
+                <div>
+                    <?php while ($materia = mysqli_fetch_assoc($resultMaterias)) { ?>
+                        <div>
+                            <label>
+                                <?php echo $materia['nombre']; ?> (Cuatrimestre: <?php echo $materia['cuatrimestre']; ?>)
+                            </label>
+                            <input type="checkbox" name="materias[]" value="<?php echo $materia['id_materia']; ?>" 
+                            <?php echo in_array($materia['id_materia'], $materiasProfesor) ? 'checked' : ''; ?>>
+                        </div>
+                    <?php } ?>
+                </div>
 
                 <div id="error-messages" class="error-message"></div>
                 <input type="submit" name="update" value="Actualizar" onclick="return validateFormUpdate();">

@@ -50,9 +50,10 @@ if (mysqli_num_rows($result) == 1) {
         <h1><img src="../../../Static/img/logo.png" alt="Logo UPEMOR">Perfil Administrador</h1>
         <nav>
             <ul>
-                <li><a href="../../AdminIndex.php" class="active">Inicio</a></li>
-                <li><a href="#">Citas</a></li>
-                <li><a href="PerfilAdmin.php">Perfil</a></li>
+                <li><a href="../../adminIndex.php" >Inicio</a></li>
+                <li><a href="../../BD/Vista/Respaldo.php">Respaldo</a></li>
+                <li><a href="../../BD/Vista/Restauracion.php">Restauración</a></li>
+                <li><a href="#" class="active">Perfil</a></li>
                 <li><a href="../../../login/logout.php">Cerrar Sesión</a></li>
             </ul>
         </nav>
@@ -84,7 +85,7 @@ if (mysqli_num_rows($result) == 1) {
                 <input type="date" name="fec_nac" id="fec_nac" value="<?php echo $fec_nac; ?>" required>
 
                 <div id="error-messages" class="error-message"></div>
-                <input type="submit" name="update" value="Registrar" onclick="return validateFormUpdate();">
+                <input type="submit" name="update" value="Actualizar" onclick="return validateFormUpdate();">
             </form>
         </div>
     </main>

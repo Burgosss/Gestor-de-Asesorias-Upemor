@@ -2,6 +2,15 @@
 session_start();
 include '../Static/connect/db.php';
 
+if (isset($_SESSION['success'])) {
+    echo "<script>alert('{$_SESSION['success']}');</script>";
+    unset($_SESSION['success']); // Elimina la alerta para que no se repita.
+}
+
+if (isset($_SESSION['error'])) {
+    echo "<script>alert('{$_SESSION['error']}');</script>";
+    unset($_SESSION['error']); // Elimina la alerta para que no se repita.
+}
 
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../login/login.html");
@@ -32,11 +41,8 @@ if (mysqli_num_rows($resultAlumno) == 1) {
             <h1>Panel del Alumno</h1>
             <nav>
                 <ul>
-                    <li><a href="#">Consultar Citas</a></li>
-                    <li><a href="#">Agendar Citas</a></li>
-                    <li><a href="Vista/MensajeriaAlumno.php">Enviar Mensajes</a></li>
-                    <li><a href="Vista/PerfilAlumno.php">Editar Perfil</a></li>
                     <li><a href="../login/logout.php">Cerrar Sesión</a></li>
+                    <li><a href="https://www.upemor.edu.mx/">Contacto</a></li>
                 </ul>
             </nav>
         </div>
@@ -47,6 +53,34 @@ if (mysqli_num_rows($resultAlumno) == 1) {
             <h2>Bienvenido, Alumno</h2>
             <p>Desde este panel, puedes consultar tus citas, agendar nuevas citas y enviar mensajes a tus profesores. También tienes la opción de editar tu información de perfil.</p>
         </div>
+
+        <table border="1" style="width: 100%; text-align: left; margin-left: 20%; margin right: 20%">
+                <thead>
+                    <tr>
+                        <th>Opciones</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Consultar Citas</td>
+                        <td><a href="Vista/consultarAsesoria.php">Ir a Consultar Citas</a></td>
+                    </tr>
+                    <tr>
+                        <td>Agendar Citas</td>
+                        <td><a href="Vista/gestionAsesoriasAlumno.php">Ir a Agendar Citas</a></td>
+                    </tr>
+                    <tr>
+                        <td>Enviar Mensajes</td>
+                        <td><a href="Vista/MensajeriaAlumno.php">Ir a Enviar Mensajes</a></td>
+                    </tr>
+                    <tr>
+                        <td>Editar Perfil</td>
+                        <td><a href="Vista/PerfilAlumno.php">Ir a Editar Perfil</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
     </main>
 
     <footer>

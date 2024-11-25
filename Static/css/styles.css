@@ -66,7 +66,7 @@ nav ul li a:hover {
 
 /* Main */
 main {
-    padding: 40px;
+    padding: 25px;
     background-color: white;
     min-height: 80vh;
 }
@@ -211,6 +211,7 @@ footer a:hover {
 table {
     width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
     border-collapse: collapse; /* Evita el espacio entre las celdas */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra alrededor de la tabla */
 }
 
 th, td {
@@ -233,6 +234,7 @@ tbody tr:hover {
     background-color: #dcdcdc; /* Color de fondo al pasar el ratón */
 }
 
+
 /* Estilo para mensajes de error en el formulario */
 .error-message {
     color: #C62828; /* Rojo UPEMOR */
@@ -250,4 +252,134 @@ tbody tr:hover {
     font-weight: bold;
     margin-top: 10px;
 }
+
+/* Contenedor flexbox para alinear el calendario y el formulario */
+.contenedor-principal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+/* Estilos para el calendario */
+#calendar {
+    margin-top: 0px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    height: 480px;
+}
+
+.formulario-asesoria {
+    margin: 0 auto; /* Centrará horizontalmente el formulario */
+    width: auto; /* Ajusta el ancho según tus necesidades */
+    background-color: #ccc;
+
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+}
+
+.botonCitas{
+    border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    background: #000000;
+    border: 12px solid #000000;
+
+}
+
+.botonCitas a {
+    color: white; /* Color del texto en el enlace */
+    text-decoration: none; /* Remueve el subrayado */
+    display: block; /* Hace que el enlace se comporte como un bloque */
+
+}
+
+
+/* CSS para Contenedor de Dos Columnas */
+.Contenedor2Columnas{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 15px;
+    grid-row-gap: 0px;
+}
+
+.Contenedor2ColumnasV3{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 15px;
+    grid-row-gap: 0px;
+}
+
+.Contenedor2ColumnasV2{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 15px;
+    grid-row-gap: 0px;
+}
+
+.Contenedor2ColumnasV2 > div{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.boton_general {
+    width: 50%;
+    background-color: #6A1B9A; /* Morado UPEMOR */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.boton_general:hover {
+    background-color: #C62828; /* Rojo UPEMOR */
+}
+
+.recuadro_indicaciones {
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 80%;
+    background-color: #f9f9f9; /* Color de fondo suave */
+    border: 1px solid #000000; /* Borde */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    font-size: 16px; /* Tamaño de fuente legible */
+    color: #333; /* Color de texto */
+}
+
+/* Estilo para enlace con apariencia de botón */
+.boton {
+    display: block;           /* Para que ocupe el mismo ancho que el botón */
+    width: 20%;              /* Si necesitas que ocupe todo el ancho */
+    text-align: center;       /* Centrar el texto */
+    background-color: #6A1B9A; /* Color morado UPEMOR */
+    color: white;
+    text-decoration: none;     /* Eliminar el subrayado de los enlaces */
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.boton:hover {
+    background-color: #C62828; /* Rojo UPEMOR */
+}
+
+
+
 
