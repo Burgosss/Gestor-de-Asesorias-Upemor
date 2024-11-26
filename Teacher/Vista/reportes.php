@@ -179,6 +179,19 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
     </header>
 
     <main>
+
+        <div>
+            <h2 style="margin-left: 5%;"><a href="agregarObservaciones.php">< Regresar</a></h2>
+            <h1 style="text-align: center;">Notas de Reunión</h1>
+        </div>
+
+        <div class="recuadro_indicaciones">
+            <p>
+                En esta sección podras generar reportes. Selecciona uno y oprime "Generar reporte" para 
+                generarlo.
+            </p>
+        </div>
+
         <div>
             <h1 style="text-align: center;">Generar Reporte de Asesorías</h1>
             <p style="text-align: center;">Selecciona el período y el año para generar el reporte.</p>
