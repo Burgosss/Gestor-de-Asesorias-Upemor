@@ -353,11 +353,11 @@ tbody tr:hover {
     padding: 15px;
     max-width: 80%;
     background-color: #f9f9f9; /* Color de fondo suave */
-    border: 1px solid #000000; /* Borde */
+    border: 5px solid #000000; /* Borde */
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
     font-size: 16px; /* Tamaño de fuente legible */
-    color: #333; /* Color de texto */
+    color: #000000; /* Color de texto */
 }
 
 /* Estilo para enlace con apariencia de botón */

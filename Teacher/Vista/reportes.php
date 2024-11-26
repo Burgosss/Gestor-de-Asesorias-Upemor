@@ -171,10 +171,17 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="container"> 
             <h1>
-                <img src="../../Static/img/logo.png" alt="Logo UPEMOR"> Generación de Reportes
+                <img src="../../Static/img/logo.png" alt="Logo UPEMOR"> Upemor - Sistema de Gestión de Asesorías
             </h1>
+            <nav>
+                <ul>
+                    <li><a href="../ProfesorIndex.php">Inicio</a></li>
+                    <li><a href="../../login/logout.php">Cerrar Sesión</a></li>
+                    <li><a href="https://www.upemor.edu.mx/">Contacto</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -182,18 +189,18 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
 
         <div>
             <h2 style="margin-left: 5%;"><a href="agregarObservaciones.php">< Regresar</a></h2>
-            <h1 style="text-align: center;">Notas de Reunión</h1>
+            <h1 style="text-align: center;">Generar reportes</h1>
         </div>
 
         <div class="recuadro_indicaciones">
             <p>
-                En esta sección podras generar reportes. Selecciona uno y oprime "Generar reporte" para 
-                generarlo.
+            En esta sección puedes generar reportes fácilmente. 
+            Selecciona el reporte deseado y haz clic en "Generar reporte" para obtenerlo.
             </p>
         </div>
 
         <div>
-            <h1 style="text-align: center;">Generar Reporte de Asesorías</h1>
+            <h2 style="text-align: center;">Generar Reporte de Asesorías</h2>
             <p style="text-align: center;">Selecciona el período y el año para generar el reporte.</p>
             <form method="POST" action="?action=generar_reporte" style="text-align: center;">
                 <label for="periodo">Período:</label>
@@ -210,5 +217,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
             </form>
         </div>
     </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema de Gestión de Asesorías. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 </body>
 </html>
