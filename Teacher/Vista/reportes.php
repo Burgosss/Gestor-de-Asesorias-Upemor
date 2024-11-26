@@ -188,7 +188,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
     <main>
 
         <div>
-            <h2 style="margin-left: 5%;"><a href="agregarObservaciones.php">< Regresar</a></h2>
+            <h2 style="margin-left: 5%;"><a href="citasProfesor.php">< Regresar</a></h2>
             <h1 style="text-align: center;">Generar reportes</h1>
         </div>
 
