@@ -47,13 +47,13 @@ if (mysqli_num_rows($result) == 1) {
 <body>
     <header>
     <div class="container">
-        <h1><img src="../../../Static/img/logo.png" alt="Logo UPEMOR">Perfil Administrador</h1>
+        <h1><img src="../../../Static/img/logo.png" alt="Logo UPEMOR">Opciones de usuarios.</h1>
         <nav>
             <ul>
                 <li><a href="../../adminIndex.php" >Inicio</a></li>
-                <li><a href="../../BD/Vista/Respaldo.php">Respaldo</a></li>
-                <li><a href="../../BD/Vista/Restauracion.php">Restauración</a></li>
-                <li><a href="#" class="active">Perfil</a></li>
+                <li><a href="PerfilAdmin.php" class="active">Perfil</a></li>
+                <li><a href="../../Registro/Registro.php">Registro</a></li>
+                <li><a href="../../Usuario/Usuario.php">Opciones</a></li>
                 <li><a href="../../../login/logout.php">Cerrar Sesión</a></li>
             </ul>
         </nav>
@@ -61,6 +61,7 @@ if (mysqli_num_rows($result) == 1) {
     </header>
 
     <main>
+        
         <div class="login-form">
             <h2>Datos del Administrador</h2>
             <form action="../Controlador/ProfileAdmin.php?id_usuario=<?php echo $id_usuario; ?>" method="POST" onsubmit="return validateFormUpdate()">

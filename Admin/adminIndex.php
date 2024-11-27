@@ -40,9 +40,6 @@ if (mysqli_num_rows($resultAdmin) == 1) {
             <nav>
                 <ul>
                     <li><a href=# class="active">Inicio</a></li>
-                    <li><a href="">Respaldo</a></li>
-                    <li><a href="">Restauración</a></li>
-                    <li><a href="Usuario/Vista/PerfilAdmin.php">Perfil</a></li>
                     <li><a href="../login/logout.php">Cerrar Sesión</a></li>
                 </ul>
             </nav>
@@ -61,10 +58,9 @@ if (mysqli_num_rows($resultAdmin) == 1) {
                 <div class="admin-options">
                     <h2>Opciones de Usuarios</h2>
                     <ul>
-                        <li><a href="Usuario/Usuario.php">Editar perfil</a></li>
-                        <li><a href="Registro/Registro.php">Registro de usuarios</a></li>
-                        <li><a href="Usuario/Usuario.php">Usuarios y Materias</a></li>
-                        <li><a href="Registro/Vista/reportesAdmin.php">Generar reportes.</a></li>
+                        <li><a href="Usuario/Vista/PerfilAdmin.php">Editar perfil</a></li>
+                        <li><a href="Registro/Registro.php">Registrar Usuarios y Materias</a></li>
+                        <li><a href="Usuario/Usuario.php">Consultas, Eliminaciones y Actualizaciones</a></li>
                     </ul>
                 </div>
             </div>
@@ -81,9 +77,7 @@ if (mysqli_num_rows($resultAdmin) == 1) {
             </div>
 
         </div>
-
-
-        
+      
     </main>
 
     <footer>

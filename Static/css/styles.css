@@ -110,6 +110,9 @@ main {
     border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.3s ease;
+    width: 100%; /* Hace que todos los botones tengan el mismo ancho */
+    text-align: center; /* Asegura que el texto esté centrado */
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
 }
 
 .admin-options ul li a:hover {
