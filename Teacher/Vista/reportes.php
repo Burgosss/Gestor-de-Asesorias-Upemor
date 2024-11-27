@@ -6,7 +6,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 // Configuración de la base de datos
@@ -80,54 +79,100 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
         die("No se encontraron registros para el período seleccionado.");
     }
 
+    // Obtener el nombre del asesor (profesor)
+    $nombre_profesor = $datos[0]['nombre_profesor'] ?? '';
+
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Configuración de encabezados
+    // Agregar las filas solicitadas
+    // Fila 1
+    $sheet->setCellValue('A1', 'UPEMOR');
+    $sheet->mergeCells('A1:B1');
+
+    $sheet->setCellValue('C1', 'Evidencia de asesoría académica individual');
+    $sheet->mergeCells('C1:L1');
+
+    // Aplicar estilo a "Evidencia de asesoría académica individual"
+    $sheet->getStyle('C1:L1')->applyFromArray([
+        'font' => [
+            'bold' => true
+        ],
+        'alignment' => [
+            'horizontal' => Alignment::HORIZONTAL_LEFT
+        ]
+    ]);
+
+    // Fila 2
+    $sheet->setCellValue('A2', 'DIAA-R1');
+    $sheet->mergeCells('A2:L2');
+
+    // Fila 3
+    $sheet->setCellValue('A3', 'Desarrollo integral del estudiante - Dirección de desarrollo académico');
+    $sheet->mergeCells('A3:L3');
+
+    // Fila 4
+    $sheet->setCellValue('A4', 'Ingeniería en Tecnologías de la Información.');
+    $sheet->mergeCells('A4:L4');
+
+    // Fila 5
+    $sheet->setCellValue('A5', 'Nombre del asesor: ' . $nombre_profesor);
+    $sheet->mergeCells('A5:L5');
+
+    // Fila 6
+    $sheet->setCellValue('A6', 'Periodo: ' . $periodo . ' ' . $anio);
+    $sheet->mergeCells('A6:L6');
+
+    // Configuración de encabezados (comienza en la fila 7)
     $encabezados = [
-        'A1' => 'Alumno',
-        'B1' => 'Cuatrimestre',
-        'C1' => 'Materia',
-        'D1' => 'ID Asesoría',
-        'E1' => 'Concepto',
-        'F1' => 'Fecha',
-        'G1' => 'Hora',
-        'H1' => 'Profesor',
-        'I1' => 'Calificación P1',
-        'J1' => 'Calificación P2',
-        'K1' => 'Hora Salida',
-        'L1' => 'Recomendaciones'
+        'A7' => 'Alumno',
+        'B7' => 'Cuatrimestre',
+        'C7' => 'Materia',
+        'D7' => 'ID Asesoría',
+        'E7' => 'Concepto',
+        'F7' => 'Fecha',
+        'G7' => 'Hora',
+        'H7' => 'Profesor',
+        'I7' => 'Calificación P1',
+        'J7' => 'Calificación P2',
+        'K7' => 'Hora Salida',
+        'L7' => 'Recomendaciones'
     ];
 
     foreach ($encabezados as $cell => $text) {
         $sheet->setCellValue($cell, $text);
     }
 
-    // Estilo para el encabezado
-    $sheet->getStyle('A1:L1')->applyFromArray([
-        'font' => [
-            'bold' => true,
-            'color' => ['argb' => Color::COLOR_WHITE],
-            'size' => 12
-        ],
+    // Aplicar estilo al encabezado (fila 7)
+    $sheet->getStyle('A7:L7')->applyFromArray([
         'fill' => [
             'fillType' => Fill::FILL_SOLID,
-            'startColor' => ['argb' => 'FF4CAF50']
+            'startColor' => ['argb' => 'FF800080'] // Color morado
         ],
         'alignment' => [
-            'horizontal' => Alignment::HORIZONTAL_CENTER,
-            'vertical' => Alignment::VERTICAL_CENTER
+            'horizontal' => Alignment::HORIZONTAL_CENTER
         ],
         'borders' => [
             'allBorders' => [
-                'borderStyle' => Border::BORDER_THIN,
-                'color' => ['argb' => 'FF000000']
+                'borderStyle' => Border::BORDER_THIN
             ]
         ]
     ]);
 
-    // Rellenar los datos
-    $row = 2;
+    // Aplicar alineación centrada y bordes a todo el texto
+    $sheet->getStyle('A1:L' . (7 + count($datos)))->applyFromArray([
+        'alignment' => [
+            'horizontal' => Alignment::HORIZONTAL_CENTER
+        ],
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => Border::BORDER_THIN
+            ]
+        ]
+    ]);
+
+    // Rellenar los datos (comenzando en la fila 8)
+    $row = 8;
     foreach ($datos as $dato) {
         $sheet->setCellValue('A' . $row, $dato['nombre_alumno']);
         $sheet->setCellValue('B' . $row, $dato['cuatrimestre']);
