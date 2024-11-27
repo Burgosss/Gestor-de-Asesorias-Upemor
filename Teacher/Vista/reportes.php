@@ -33,6 +33,10 @@ $sqlProfesor = "SELECT profesor.id_profesor, CONCAT(usuario.nombre, ' ', usuario
 $resultProfesor = $conn->query($sqlProfesor);
 $profesor = $resultProfesor->fetch_assoc();
 
+if (!$profesor) {
+    die("No se encontró un profesor asociado a la sesión actual.");
+}
+
 $id_profesor = $profesor['id_profesor'];
 $nombre_profesor = $profesor['nombre_profesor'];
 
@@ -50,10 +54,15 @@ function obtenerDatosReporte($conn, $id_profesor, $inicio, $fin)
             SUM(CASE WHEN asesoria.estado = 'Aprobada' THEN 1 ELSE 0 END) AS aceptadas,
             SUM(CASE WHEN asesoria.estado = 'Finalizada' THEN 1 ELSE 0 END) AS finalizadas,
             COUNT(asesoria.id_asesoria) AS total
-        FROM asesoria
-        JOIN materia ON asesoria.id_materia = materia.id_materia
-        WHERE asesoria.id_profesor = $id_profesor
-        AND asesoria.fecha BETWEEN '$inicio' AND '$fin'
+        FROM materia
+        LEFT JOIN asesoria ON materia.id_materia = asesoria.id_materia
+            AND asesoria.id_profesor = $id_profesor
+            AND asesoria.fecha BETWEEN '$inicio' AND '$fin'
+        WHERE materia.id_materia IN (
+            SELECT id_materia
+            FROM profesor_materia
+            WHERE id_profesor = $id_profesor
+        )
         GROUP BY materia.nombre
         ORDER BY materia.nombre ASC
     ";
@@ -82,7 +91,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
     $datos = obtenerDatosReporte($conn, $id_profesor, $inicio, $fin);
 
     if (empty($datos)) {
-        die("No se encontraron registros para el período seleccionado.");
+        die("No se encontraron materias asignadas para el profesor actual.");
     }
 
     $spreadsheet = new Spreadsheet();
@@ -121,9 +130,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
     $row = 6;
     foreach ($datos as $dato) {
         $sheet->setCellValue('A' . $row, $dato['asignatura']);
-        $sheet->setCellValue('B' . $row, $dato['aceptadas']);
-        $sheet->setCellValue('C' . $row, $dato['finalizadas']);
-        $sheet->setCellValue('D' . $row, $dato['total']);
+        $sheet->setCellValue('B' . $row, $dato['aceptadas'] ?? 0);
+        $sheet->setCellValue('C' . $row, $dato['finalizadas'] ?? 0);
+        $sheet->setCellValue('D' . $row, $dato['total'] ?? 0);
         $row++;
     }
 
