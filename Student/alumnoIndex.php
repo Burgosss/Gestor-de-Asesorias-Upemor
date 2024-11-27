@@ -54,7 +54,7 @@ if (mysqli_num_rows($resultAlumno) == 1) {
             <p>Desde este panel, puedes consultar tus citas, agendar nuevas citas y enviar mensajes a tus profesores. También tienes la opción de editar tu información de perfil.</p>
         </div>
 
-        <table border="1" style="width: 100%; text-align: left; margin-left: 20%; margin right: 20%">
+        <table border="1" style="width: 100%; text-align: left; width:80%">
                 <thead>
                     <tr>
                         <th>Opciones</th>
@@ -77,6 +77,10 @@ if (mysqli_num_rows($resultAlumno) == 1) {
                     <tr>
                         <td>Editar Perfil</td>
                         <td><a href="Vista/PerfilAlumno.php">Ir a Editar Perfil</a></td>
+                    </tr>
+                    <tr>
+                        <td>Reportes</td>
+                        <td><a href="Vista/reportesAlumno.php">Ir a Editar Perfil</a></td>
                     </tr>
                 </tbody>
             </table>
