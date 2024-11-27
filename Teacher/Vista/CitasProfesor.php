@@ -82,7 +82,10 @@ if (mysqli_num_rows($resultAdmin) == 1) {
                         <td><a href="../Vista/compartirMaterial.php">Compartir archivos con el alumno.</a></td>
                     </tr>
                     <tr>
-                        <td><a href="../Vista/reportes.php">Generación de reportes.</a></td>
+                        <td><a href="../Vista/formato.php">Formato de control de asesorías.</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="../Vista/reportes.php">Reportes.</a></td>
                     </tr>
 
                 </table>
