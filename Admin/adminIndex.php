@@ -25,6 +25,14 @@ if (mysqli_num_rows($resultAdmin) == 1) {
     <link rel="stylesheet" href="../Static/css/styles.css">
 </head>
 
+<style>
+    main {
+        background-image: url('../Static/img/background_admin.webp'); /* Ruta de tu imagen */
+        background-size: cover; /* Hace que la imagen cubra todo el fondo */
+    }
+</style>
+
+
 <body>
     <header>
         <div class="container">
@@ -32,8 +40,8 @@ if (mysqli_num_rows($resultAdmin) == 1) {
             <nav>
                 <ul>
                     <li><a href=# class="active">Inicio</a></li>
-                    <li><a href="BD/Vista/Respaldo.php">Respaldo</a></li>
-                    <li><a href="BD/Vista/Restauracion.php">Restauración</a></li>
+                    <li><a href="">Respaldo</a></li>
+                    <li><a href="">Restauración</a></li>
                     <li><a href="Usuario/Vista/PerfilAdmin.php">Perfil</a></li>
                     <li><a href="../login/logout.php">Cerrar Sesión</a></li>
                 </ul>
@@ -42,15 +50,40 @@ if (mysqli_num_rows($resultAdmin) == 1) {
     </header>
 
     <main>
-        <div class="admin-options">
-            <h2>Opciones de Administración</h2>
-            <ul>
-                <li><a href="Registro/Registro.php">Registro</a></li>
-                <li><a href="Usuario/Usuario.php">Usuarios y Materias</a></li>
-                <li><a href="Registro/Vista/archivos.php">Gestion de Archivos</a></li>
-                <li><a href="Registro/Vista/reportesAdmin.php">Generar reportes.</a></li>
-            </ul>
+        <div class="recuadro_indicaciones">
+            <h2>Bienvenido, Administrador</h2>
+            <p>Desde este panel, puedes consultar las diferente opciones que tienes, haz
+                clic en una para comenzar.</p>
         </div>
+
+        <div class="Contenedor2Columnas">
+            <div> 
+                <div class="admin-options">
+                    <h2>Opciones de Usuarios</h2>
+                    <ul>
+                        <li><a href="Usuario/Usuario.php">Editar perfil</a></li>
+                        <li><a href="Registro/Registro.php">Registro de usuarios</a></li>
+                        <li><a href="Usuario/Usuario.php">Usuarios y Materias</a></li>
+                        <li><a href="Registro/Vista/reportesAdmin.php">Generar reportes.</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div> 
+                <div class="admin-options">
+                    <h2>Opciones de Administración</h2>
+                    <ul>
+                        <li><a href="Registro/Vista/archivos.php">Gestion de Archivos</a></li>
+                        <li><a href="Registro/Vista/reportesAdmin.php">Generar reportes.</a></li>
+                        <li><a href="BD/Vista/Respaldo.php">Respaldar la base de datos</a></li>
+                        <li><a href="BD/Vista/Restauracion.php">Restaurar la base de datos</a></li>
+                     </ul>
+                </div>
+            </div>
+
+        </div>
+
+
+        
     </main>
 
     <footer>

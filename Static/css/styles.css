@@ -73,12 +73,15 @@ main {
 
 /* Opciones de administración */
 .admin-options {
-    padding: 40px;
-    max-width: 600px;
-    margin: 0 auto;
+    display:block;
+    padding: 40px; /* Espaciado interno */
+    margin: 0 auto; /* Centra horizontalmente */
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-left: 10%;
+    margin-right: 10%;
+    height:auto;
 }
 
 .admin-options h2 {
@@ -212,6 +215,7 @@ table {
     width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
     border-collapse: collapse; /* Evita el espacio entre las celdas */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra alrededor de la tabla */
+    background-color: white; /* Asegura un fondo blanco para la tabla */
 }
 
 th, td {
@@ -353,7 +357,7 @@ tbody tr:hover {
     padding: 15px;
     max-width: 80%;
     background-color: #f9f9f9; /* Color de fondo suave */
-    border: 5px solid #000000; /* Borde */
+    border: 3px solid #7a6a85; /* Borde */
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
     font-size: 16px; /* Tamaño de fuente legible */

@@ -35,6 +35,14 @@ if (mysqli_num_rows($resultAlumno) == 1) {
     <title>Panel del Alumno</title>
     <link rel="stylesheet" href="../Static/css/styles.css"> 
 </head>
+
+<style>
+    main {
+        background-image: url('../Static/img/background_student.webp'); /* Ruta de tu imagen */
+        background-size: cover; /* Hace que la imagen cubra todo el fondo */
+    }
+</style>
+
 <body>
     <header>
         <div class="container">
@@ -49,41 +57,21 @@ if (mysqli_num_rows($resultAlumno) == 1) {
     </header>
 
     <main>
-        <div class="container">
+        <div class="recuadro_indicaciones">
             <h2>Bienvenido, Alumno</h2>
             <p>Desde este panel, puedes consultar tus citas, agendar nuevas citas y enviar mensajes a tus profesores. También tienes la opción de editar tu información de perfil.</p>
         </div>
 
-        <table border="1" style="width: 100%; text-align: left; width:80%">
-                <thead>
-                    <tr>
-                        <th>Opciones</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Consultar Citas</td>
-                        <td><a href="Vista/consultarAsesoria.php">Ir a Consultar Citas</a></td>
-                    </tr>
-                    <tr>
-                        <td>Agendar Citas</td>
-                        <td><a href="Vista/gestionAsesoriasAlumno.php">Ir a Agendar Citas</a></td>
-                    </tr>
-                    <tr>
-                        <td>Enviar Mensajes</td>
-                        <td><a href="Vista/MensajeriaAlumno.php">Ir a Enviar Mensajes</a></td>
-                    </tr>
-                    <tr>
-                        <td>Editar Perfil</td>
-                        <td><a href="Vista/PerfilAlumno.php">Ir a Editar Perfil</a></td>
-                    </tr>
-                    <tr>
-                        <td>Reportes</td>
-                        <td><a href="Vista/reportesAlumno.php">Ir a Generar Reportes</a></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="admin-options">
+            <h2>Opciones de Administración</h2>
+            <ul>
+                <li><a href="Vista/consultarAsesoria.php">Consultar Citas</a></li>
+                <li><a href="Vista/gestionAsesoriasAlumno.php">Agendar Citas</a></li>
+                <li><a href="Vista/MensajeriaAlumno.php">Enviar Mensajes</a></li>
+                <li><a href="Vista/PerfilAlumno.php">Editar Perfil</a></li>
+                <li><a href="Vista/reportesAlumno.php">Generar Reportes</a></li>
+            </ul>
+        </div>
 
     </main>
 
