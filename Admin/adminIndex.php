@@ -48,6 +48,7 @@ if (mysqli_num_rows($resultAdmin) == 1) {
                 <li><a href="Registro/Registro.php">Registro</a></li>
                 <li><a href="Usuario/Usuario.php">Usuarios y Materias</a></li>
                 <li><a href="Registro/Vista/archivos.php">Gestion de Archivos</a></li>
+                <li><a href="Registro/Vista/reportesAdmin.php">Generar reportes.</a></li>
             </ul>
         </div>
     </main>
