@@ -24,6 +24,7 @@ $id_materia = $_GET['id_materia'];
 $query = "SELECT * FROM materia WHERE id_materia = $id_materia;";
 $result = mysqli_query($conn, $query);
 
+
 if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_array($result);
     $nombre = $row['nombre'];
@@ -88,6 +89,8 @@ if (mysqli_num_rows($result) == 1) {
 
                 <label for="descripcion">Descripcion</label>
                 <input type="text" id="descripcion" name="descripcion" value="<?php echo $descripcion; ?>" required>
+
+            
 
 
                 <div id="error-messages" class="error-message"></div>
