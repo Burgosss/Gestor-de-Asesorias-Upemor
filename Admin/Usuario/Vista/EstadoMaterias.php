@@ -16,7 +16,13 @@ $resultAdmin = mysqli_query($conn, $sqlAdmin);
 
 if (mysqli_num_rows($resultAdmin) == 1) {
 ?> 
-
+<?php
+if (isset($_GET['error']) && $_GET['error'] == 'materia_registrada') {
+    echo "<script>
+        alert('No se puede actualizar el nombre ya que el nombre coincide con otra materia.');
+    </script>";
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

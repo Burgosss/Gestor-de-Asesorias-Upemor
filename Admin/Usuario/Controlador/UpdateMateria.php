@@ -18,10 +18,21 @@ if (mysqli_num_rows($resultAdmin) == 1) {
 ?>  
 <?php
 
+
+
 if (isset($_POST['update'])) {
     $id_materia = $_GET['id_materia'];
     $nombre = $_POST['nombre'];
     $cuatrimestre = $_POST['cuatrimestre'];
+
+    $checkQuery = "SELECT nombre FROM materia WHERE nombre = '$nombre' AND id_materia != $id_materia";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        // Datos duplicados
+        header("Location:../Vista/EstadoMaterias.php?error=materia_registrada");
+        exit();
+    }
 
     $query = "UPDATE materia SET nombre = '$nombre', cuatrimestre = '$cuatrimestre' WHERE id_materia = $id_materia";
 
