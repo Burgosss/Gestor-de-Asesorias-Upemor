@@ -80,7 +80,7 @@ if (mysqli_num_rows($resultAlumno) == 1) {
                     </tr>
                     <tr>
                         <td>Reportes</td>
-                        <td><a href="Vista/reportesAlumno.php">Ir a Editar Perfil</a></td>
+                        <td><a href="Vista/reportesAlumno.php">Ir a Generar Reportes</a></td>
                     </tr>
                 </tbody>
             </table>

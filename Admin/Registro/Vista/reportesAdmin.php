@@ -180,11 +180,20 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
     <link rel="stylesheet" href="../../../Static/css/styles.css"">
 </head>
 <body>
-    <header>
+<header>
         <div class="container">
             <h1>
-                <img src="../../../Static/img/logo.png" alt="Logo UPEMOR"> Generación de Reportes
+                <img src="../../../Static/img/logo.png" alt="Logo UPEMOR"> Generación de reportes
             </h1>
+            <nav>
+                <ul>
+                    <li><a href="../../AdminIndex.php" >Inicio</a></li>
+                    <li><a href="../Registro.php" class="active">Registros</a></li>
+                    <li><a href="../../Usuario/Vista/PerfilAdmin.php">Perfil</a></li>
+                    <li><a href="../../../login/logout.php">Cerrar Sesión</a></li>
+
+                </ul>
+            </nav>
         </div>
     </header>
 
