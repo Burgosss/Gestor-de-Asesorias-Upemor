@@ -45,7 +45,7 @@ function obtenerDatosReporte2($conn, $inicio, $fin)
     $sql = "
         SELECT 
             CONCAT(usuario.nombre, ' ', usuario.apellido) AS profesor,
-            SUM(CASE WHEN asesoria.estado = 'Pendiente' THEN 1 ELSE 0 END) AS pendientes,
+            SUM(CASE WHEN asesoria.estado = 'Reservada' THEN 1 ELSE 0 END) AS pendientes,
             SUM(CASE WHEN asesoria.estado = 'Aprobada' THEN 1 ELSE 0 END) AS aceptadas,
             SUM(CASE WHEN asesoria.estado = 'Rechazada' THEN 1 ELSE 0 END) AS rechazadas
         FROM profesor
@@ -198,7 +198,16 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
     </header>
 
     <main>
-        <h1 style="text-align: center;">Generar Reportes</h1>
+
+        <div>
+            <h1 style="display: flex; justify-content: center;">Generar reportes</h1>
+            <p class="recuadro_indicaciones"> 
+                En está sección podrás generar reportes de asesorias por asignatura, asi como asesorías por profesor.
+                Selecciona el tipo de reporte, asi como el periodo y haz clic en el botón "Generar reporte".
+            </p>
+        </div>
+
+        <h2 style="text-align: center;">Formulario</h2>
         <form method="POST" action="?action=generar_reporte" class="login-form">
             <label for="reporte">Selecciona el reporte:</label>
             <select name="reporte" id="reporte" required>

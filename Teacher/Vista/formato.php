@@ -81,12 +81,17 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
 
     $datos = obtenerDatos($conn, $inicio, $fin);
 
-    if (empty($datos)) {
-        die("No se encontraron registros para el período seleccionado.");
-    }
+    // Comentamos esta sección para que no detenga la ejecución si no hay datos
+    // if (empty($datos)) {
+    //     die("No se encontraron registros para el período seleccionado.");
+    // }
 
     // Obtener el nombre del asesor (profesor)
-    $nombre_profesor = $datos[0]['nombre_profesor'] ?? '';
+    if (!empty($datos)) {
+        $nombre_profesor = $datos[0]['nombre_profesor'] ?? '';
+    } else {
+        $nombre_profesor = ''; // Puedes asignar un valor por defecto si lo deseas
+    }
 
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
@@ -166,7 +171,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
     ]);
 
     // Aplicar alineación centrada y bordes a todo el texto
-    $sheet->getStyle('A1:L' . (7 + count($datos)))->applyFromArray([
+    $maxRow = !empty($datos) ? (7 + count($datos)) : 8; // Si no hay datos, el máximo es 8 (hasta la fila de encabezados)
+    $sheet->getStyle('A1:L' . $maxRow)->applyFromArray([
         'alignment' => [
             'horizontal' => Alignment::HORIZONTAL_CENTER
         ],
@@ -253,7 +259,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
         <div>
             <h2 style="text-align: center;">Generar reporte</h2>
             <p style="text-align: center;">Selecciona el período y el año para generar el reporte.</p>
-            <form method="POST" action="?action=generar_reporte" style="text-align: center;">
+            <form method="POST" action="?action=generar_reporte" style="text-align: center;" class="login-form">
                 <label for="periodo">Período:</label>
                 <select name="periodo" id="periodo" required>
                     <option value="Enero-Abril">Enero - Abril</option>
@@ -271,7 +277,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Sistema de Gestión de Asesorías. Todos los derechos reservados.</p>
+            <p>&copy; <?php echo date('Y'); ?> Sistema de Gestión de Asesorías. Todos los derechos reservados.</p>
         </div>
     </footer>
 </body>

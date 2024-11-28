@@ -6,7 +6,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 // Configuración de la base de datos
 $servername = "localhost";
@@ -53,7 +52,7 @@ function obtenerDatosReporte($conn, $id_profesor, $inicio, $fin)
             materia.nombre AS asignatura,
             SUM(CASE WHEN asesoria.estado = 'Aprobada' THEN 1 ELSE 0 END) AS aceptadas,
             SUM(CASE WHEN asesoria.estado = 'Finalizada' THEN 1 ELSE 0 END) AS finalizadas,
-            COUNT(asesoria.id_asesoria) AS total
+            SUM(CASE WHEN asesoria.estado IN ('Aprobada', 'Finalizada') THEN 1 ELSE 0 END) AS total
         FROM materia
         LEFT JOIN asesoria ON materia.id_materia = asesoria.id_materia
             AND asesoria.id_profesor = $id_profesor
@@ -129,10 +128,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
     // Rellenar los datos
     $row = 6;
     foreach ($datos as $dato) {
+        $aceptadas = $dato['aceptadas'] ?? 0;
+        $finalizadas = $dato['finalizadas'] ?? 0;
+        $total = $aceptadas + $finalizadas;
+
         $sheet->setCellValue('A' . $row, $dato['asignatura']);
-        $sheet->setCellValue('B' . $row, $dato['aceptadas'] ?? 0);
-        $sheet->setCellValue('C' . $row, $dato['finalizadas'] ?? 0);
-        $sheet->setCellValue('D' . $row, $dato['total'] ?? 0);
+        $sheet->setCellValue('B' . $row, $aceptadas);
+        $sheet->setCellValue('C' . $row, $finalizadas);
+        $sheet->setCellValue('D' . $row, $total);
         $row++;
     }
 
@@ -163,15 +166,30 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
 <body>
     <header>
         <div class="container">
-            <h1>
-                <img src="../../Static/img/logo.png" alt="Logo UPEMOR"> Generación de Reportes
-            </h1>
+            <h1><img src="../../Static/img/logo.png" alt="Logo UPEMOR">Perfil Profesor</h1>
+            <nav>
+                <ul>
+                    <li><a href="../ProfesorIndex.php" >Inicio</a></li>
+                    <li><a href="citasprofesor.php">Gestión de Asesorías</a></li>
+                    <li><a href="MensajeriaProfesor.php">Enviar Mensajes</a></li>
+                    <li><a href="PerfilProfesor.php" class="active">Perfil</a></li>
+                    <li><a href="../../login/logout.php">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
     <main>
-        <h1 style="text-align: center;">Generar Reporte</h1>
-        <form method="POST" action="?action=generar_reporte" style="text-align: center;">
+        <div>
+            <h1 style="display: flex; justify-content: center;">Generar reportes</h1>
+            <p class="recuadro_indicaciones"> 
+                En esta sección podrás generar reportes de asesorías por asignatura. Selecciona un período y
+                haz clic en "Generar reporte" para continuar.
+            </p>
+        </div>
+
+        <h2 style="text-align: center;">Formulario</h2>
+        <form method="POST" action="?action=generar_reporte" style="text-align: center;" class="login-form">
             <label for="periodo">Período:</label>
             <select name="periodo" id="periodo" required>
                 <option value="Enero-Abril">Enero - Abril</option>
@@ -188,7 +206,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Sistema de Gestión de Asesorías. Todos los derechos reservados.</p>
+            <p>&copy; <?php echo date('Y'); ?> Sistema de Gestión de Asesorías. Todos los derechos reservados.</p>
         </div>
     </footer>
 </body>

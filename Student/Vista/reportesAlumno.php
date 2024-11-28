@@ -50,7 +50,7 @@ function obtenerDatosReporte1($conn, $id_alumno, $inicio, $fin)
             SUM(CASE WHEN asesoria.estado = 'Aprobada' THEN 1 ELSE 0 END) AS aceptadas,
             SUM(CASE WHEN asesoria.estado = 'Finalizada' THEN 1 ELSE 0 END) AS finalizadas,
             SUM(CASE WHEN asesoria.estado = 'Rechazada' THEN 1 ELSE 0 END) AS rechazadas,
-            COUNT(asesoria.id_asesoria) AS total
+            SUM(CASE WHEN asesoria.estado IN ('Aprobada', 'Finalizada', 'Rechazada') THEN 1 ELSE 0 END) AS total
         FROM profesor
         JOIN usuario ON profesor.id_usuario = usuario.id_usuario
         LEFT JOIN asesoria ON profesor.id_profesor = asesoria.id_profesor
@@ -68,7 +68,10 @@ function obtenerDatosReporte2($conn, $id_alumno, $inicio, $fin)
     $sql = "
         SELECT 
             materia.nombre AS asignatura,
-            COUNT(asesoria.id_asesoria) AS total_asesorias
+            SUM(CASE WHEN asesoria.estado = 'Aprobada' THEN 1 ELSE 0 END) AS aceptadas,
+            SUM(CASE WHEN asesoria.estado = 'Finalizada' THEN 1 ELSE 0 END) AS finalizadas,
+            SUM(CASE WHEN asesoria.estado = 'Rechazada' THEN 1 ELSE 0 END) AS rechazadas,
+            SUM(CASE WHEN asesoria.estado IN ('Aprobada', 'Finalizada', 'Rechazada') THEN 1 ELSE 0 END) AS total
         FROM materia
         LEFT JOIN asesoria ON materia.id_materia = asesoria.id_materia
             AND asesoria.id_alumno = $id_alumno
@@ -120,11 +123,16 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
 
         $row = 6;
         foreach ($datos as $dato) {
+            $aceptadas = $dato['aceptadas'] ?? 0;
+            $finalizadas = $dato['finalizadas'] ?? 0;
+            $rechazadas = $dato['rechazadas'] ?? 0;
+            $total = $aceptadas + $finalizadas + $rechazadas;
+
             $sheet->setCellValue('A' . $row, $dato['profesor']);
-            $sheet->setCellValue('B' . $row, $dato['aceptadas'] ?? 0);
-            $sheet->setCellValue('C' . $row, $dato['finalizadas'] ?? 0);
-            $sheet->setCellValue('D' . $row, $dato['rechazadas'] ?? 0);
-            $sheet->setCellValue('E' . $row, $dato['total'] ?? 0);
+            $sheet->setCellValue('B' . $row, $aceptadas);
+            $sheet->setCellValue('C' . $row, $finalizadas);
+            $sheet->setCellValue('D' . $row, $rechazadas);
+            $sheet->setCellValue('E' . $row, $total);
             $row++;
         }
     } elseif ($reporte === 'reporte2') {
@@ -132,20 +140,31 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
 
         // Encabezados del reporte 2
         $sheet->setCellValue('A1', 'Universidad Politécnica del Estado de Morelos');
-        $sheet->mergeCells('A1:B1');
+        $sheet->mergeCells('A1:E1');
         $sheet->setCellValue('A2', 'Asesorías por asignatura');
-        $sheet->mergeCells('A2:B2');
+        $sheet->mergeCells('A2:E2');
         $sheet->setCellValue('A3', 'Alumno: ' . $nombre_alumno);
-        $sheet->mergeCells('A3:B3');
+        $sheet->mergeCells('A3:E3');
         $sheet->setCellValue('A4', "Periodo: $periodo $anio");
-        $sheet->mergeCells('A4:B4');
+        $sheet->mergeCells('A4:E4');
         $sheet->setCellValue('A5', 'Asignatura');
-        $sheet->setCellValue('B5', 'Total de asesorías');
+        $sheet->setCellValue('B5', 'Aceptadas');
+        $sheet->setCellValue('C5', 'Finalizadas');
+        $sheet->setCellValue('D5', 'Rechazadas');
+        $sheet->setCellValue('E5', 'Total');
 
         $row = 6;
         foreach ($datos as $dato) {
+            $aceptadas = $dato['aceptadas'] ?? 0;
+            $finalizadas = $dato['finalizadas'] ?? 0;
+            $rechazadas = $dato['rechazadas'] ?? 0;
+            $total = $aceptadas + $finalizadas + $rechazadas;
+
             $sheet->setCellValue('A' . $row, $dato['asignatura']);
-            $sheet->setCellValue('B' . $row, $dato['total_asesorias'] ?? 0);
+            $sheet->setCellValue('B' . $row, $aceptadas);
+            $sheet->setCellValue('C' . $row, $finalizadas);
+            $sheet->setCellValue('D' . $row, $rechazadas);
+            $sheet->setCellValue('E' . $row, $total);
             $row++;
         }
     } else {
@@ -158,7 +177,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
     }
 
     // Aplicar estilo general
-    $sheet->getStyle('A1:E' . $row)->applyFromArray([
+    $sheet->getStyle('A1:E' . ($row - 1))->applyFromArray([
         'alignment' => [
             'horizontal' => Alignment::HORIZONTAL_CENTER,
         ],
@@ -166,6 +185,17 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
             'allBorders' => [
                 'borderStyle' => Border::BORDER_THIN,
             ],
+        ],
+    ]);
+
+    // Aplicar estilo al encabezado
+    $sheet->getStyle('A5:E5')->applyFromArray([
+        'font' => [
+            'bold' => true,
+        ],
+        'fill' => [
+            'fillType' => Fill::FILL_SOLID,
+            'startColor' => ['argb' => 'FFCCCCCC'],
         ],
     ]);
 
@@ -189,17 +219,35 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
     <link rel="stylesheet" href="../../Static/css/styles.css">
 </head>
 <body>
-    <header>
-        <div class="container">
+<header>
+        <div class="container"> 
             <h1>
-                <img src="../../Static/img/logo.png" alt="Logo UPEMOR"> Generación de Reportes
+                <img src="../../Static/img/logo.png" alt="Logo UPEMOR"> Upemor - Sistema de Gestión de Asesorías
             </h1>
+            <nav>
+                <ul>
+                    <li><a href="../alumnoIndex.php">Inicio</a></li>
+                    <li><a href="../../login/logout.php">Cerrar Sesión</a></li>
+                    <li><a href="https://www.upemor.edu.mx/">Contacto</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
     <main>
+        <div>
+            <h1 style="text-align: center;">Generar reportes.</h1>
+        </div>
+
+        <div class="recuadro_indicaciones">
+            <p>
+            En esta sección puedes generar reportes de asesorías por profesor, así como por asignatura.
+            Selecciona un tipo de reporte, el período y haz clic en "Generar Reporte" para continuar.
+            </p>
+        </div>
+
         <h1 style="text-align: center;">Generar Reportes</h1>
-        <form method="POST" action="?action=generar_reporte" style="text-align: center;">
+        <form method="POST" action="?action=generar_reporte" style="text-align: center;" class="login-form">
             <label for ="reporte">Selecciona el reporte:</label>
             <select name="reporte" id="reporte" required>
                 <option value="reporte1">Reporte por profesor</option>
@@ -222,9 +270,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 UPEMOR. Todos los derechos reservados.</p>
+            <p>&copy; <?php echo date('Y'); ?> UPEMOR. Todos los derechos reservados.</p>
         </div>
     </footer>
 </body>
 </html>
-
