@@ -3,6 +3,7 @@
 session_start();
 include '../../Static/connect/db.php';
 
+
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../../login/login.html");
@@ -22,6 +23,11 @@ if (isset($_POST['id_profesor'])) {
     $_SESSION['id_profesor'] = $_POST['id_profesor'];
 }
 $id_profesor = $_SESSION['id_profesor'];
+
+if (isset($_POST['id_materia'])) {
+    $_SESSION['id_materia'] = $_POST['id_materia'];
+}
+$id_materia = $_SESSION['id_materia'];
 
 // Verificar si el profesor existe en la base de datos
 $sqlProfesor = "SELECT * FROM profesor WHERE id_profesor = '$id_profesor'";
@@ -57,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solicitar_asesoria'])
     // Insertar la nueva solicitud de asesoría
     $sqlInsert = "
         INSERT INTO asesoria (concepto, fecha, hora, estado, observaciones, id_materia, id_alumno, id_profesor)
-        VALUES ('$concepto', '$fecha', '$hora', 'Reservada', '$observaciones', 1, 
+        VALUES ('$concepto', '$fecha', '$hora', 'Reservada', '$observaciones', '$id_materia', 
                 (SELECT id_alumno FROM alumno WHERE id_usuario = '$id_usuario'), '$id_profesor')
     ";
     $resultInsert = mysqli_query($conn, $sqlInsert);

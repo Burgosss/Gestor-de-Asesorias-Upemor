@@ -246,7 +246,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'generar_reporte') {
             </p>
         </div>
 
-        <h1 style="text-align: center;">Generar Reportes</h1>
+        <h2 style="text-align: center;">Formulario</h2>
         <form method="POST" action="?action=generar_reporte" style="text-align: center;" class="login-form">
             <label for ="reporte">Selecciona el reporte:</label>
             <select name="reporte" id="reporte" required>
